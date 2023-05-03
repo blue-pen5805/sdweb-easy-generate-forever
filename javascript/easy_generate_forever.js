@@ -34,6 +34,8 @@ onUiLoaded(() => {
   }
 
   const setIndicatorLabel = (indicator, alert = false) => {
+    if (indicator.innerHTML === '🚫' && alert) return
+
     indicator.innerHTML = !alert ? '♾️' : '🚫'
   }
 
@@ -43,13 +45,9 @@ onUiLoaded(() => {
   indicator.classList.add('indicator')
   setIndicatorLabel(indicator)
 
-  //
   const seedInput = gradioApp().getElementById('txt2img_seed').querySelector('input')
-  seedInput.addEventListener('input', () => { setIndicatorLabel(indicator, seedInput.value !== '-1') })
-  const randomButton = gradioApp().getElementById('txt2img_random_seed')
-  randomButton.addEventListener('click', () => {
-    setTimeout(() => { setIndicatorLabel(indicator, seedInput.value !== '-1') }, 100)
-  })
+  // FIXME: no dispatch event when `Send to txt2img`
+  setInterval(() => { setIndicatorLabel(indicator, seedInput.value !== '-1') }, 1000)
 
   //
   generateForeverButton.addEventListener('click', () => {
