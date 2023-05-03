@@ -33,13 +33,27 @@ onUiLoaded(() => {
     return [generateForeverButton, cancelGenerateForeverButton]
   }
 
+  const setIndicatorLabel = (indicator, alert = false) => {
+    indicator.innerHTML = !alert ? '♾️' : '🚫'
+  }
+
   const [generateForeverButton, cancelGenerateForeverButton] = buildButtons()
 
   const indicator = document.createElement('span')
-  indicator.innerHTML = '♾️'
+  indicator.classList.add('indicator')
+  setIndicatorLabel(indicator)
 
+  //
+  const seedInput = gradioApp().getElementById('txt2img_seed').querySelector('input')
+  seedInput.addEventListener('input', () => { setIndicatorLabel(indicator, seedInput.value !== '-1') })
+  const randomButton = gradioApp().getElementById('txt2img_random_seed')
+  randomButton.addEventListener('click', () => {
+    setTimeout(() => { setIndicatorLabel(indicator, seedInput.value !== '-1') }, 100)
+  })
+
+  //
   generateForeverButton.addEventListener('click', () => {
-    generateOnRepeat('#txt2img_generate', '#txt2img_interrupt');
+    generateOnRepeat('#txt2img_generate', '#txt2img_interrupt')
     indicator.classList.add('forever')
   })
   cancelGenerateForeverButton.addEventListener('click', () => {
@@ -47,6 +61,7 @@ onUiLoaded(() => {
     indicator.classList.remove('forever')
   })
 
+  //
   const buttons = document.createElement('div')
   buttons.classList.add('easy_generate_forever_container', 'buttons')
   buttons.appendChild(generateForeverButton)

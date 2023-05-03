@@ -15,6 +15,10 @@
   font-size: 0.9em !important;
 }
 
+.easy_generate_forever_container > .indicator {
+  font-size: 1.5em;
+}
+
 .easy_generate_forever_container > .forever {
   animation: 3s linear infinite easy_generate_forever_container_rotation;
 }
