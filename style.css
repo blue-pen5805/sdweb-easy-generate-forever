@@ -1,0 +1,30 @@
+.easy_generate_forever_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.easy_generate_forever_container .buttons {
+  flex: 1;
+  gap: var(--layout-gap);
+}
+
+.easy_generate_forever_container > button {
+  flex: 1;
+  font-size: 0.9em !important;
+}
+
+.easy_generate_forever_container > .forever {
+  animation: 3s linear infinite easy_generate_forever_container_rotation;
+}
+
+@keyframes easy_generate_forever_container_rotation {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
